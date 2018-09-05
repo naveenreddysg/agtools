@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">All Fruits</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                     
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+
+                <div class="animated fadeIn">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <font size="3">Total Fruits:</font>  <font size="4">{{total_fruits}}</font>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0 datatable">
+                                        <thead class="thead-default">
+
+                                            <tr>
+                                                <th>Crawl_Date</th>
+                                                <th >Rate-Value</th>
+                                                <th>Month</th>
+                                                <th >Report-Date</th>
+												<th >Year</th>
+												<th>Class</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+										{% for items in result_items %}
+                                            <tr>
+
+                                                <td >
+                                                    {{items.crawl_date}}
+                                                </td>
+                                                <td>
+                                                    {{items.rate_value}}
+                                                </td>
+                                                <td >
+                                                     {{items.month}}
+                                                </td>
+												<td>
+                                                    {{items.report_date}}
+                                                </td>
+												<td>
+                                                    {{items.year}}
+                                                </td>
+                                                <td>
+												    {{items.class}}
+                                                </td>
+
+                                            </tr>
+                                        {%endfor%}
+
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.col-->
+                    </div>
+                    <!--/.row-->
+                </div>
+
+
+            </div>
+            <!-- /.conainer-fluid -->
+
+{% endblock %}

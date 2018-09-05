@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">Registered Users</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                     
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+
+                <div class="animated fadeIn">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Total Users : {{total_users}}
+                                </div>
+
+                                <div class="card-body">
+                                   
+                                    <table class="table table-responsive table-hover table-outline mb-0 datatable" id ="example">
+                                        <thead class="thead-default">
+
+                                            <tr>
+
+                                                <th class="text-center"><i class="icon-people"></i>
+                                                </th>
+                                                <th>Name</th>
+                                                <th >User Type</th>
+                                                <th>Joined Date</th>
+                                                <th >Address</th>
+												<th >Country</th>
+												{#<th>Subscriptions</th>#}
+                                                <th>Status</th>
+												<th>Actions</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+										{% for items in result %}
+                                            <tr>
+
+                                                <td class="text-center">
+                                                    {{items.userId}}
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        {{items.name}}
+                                                    </div>
+                                                    <div class="small text-muted">
+                                                        {{items.username}}
+                                                    </div>
+                                                </td>
+                                                <td >
+                                                    {{items.usertype}}
+                                                </td>
+                                                <td>
+                                                    {{items.created_time}}
+                                                </td>
+                                                <td >
+                                                     {{items.city}}, {{items.state}}
+                                                </td>
+												<td>
+                                                    {{items.country}}
+                                                </td>
+												{#<td>
+                                                    {{items.totalsubscription}}
+                                                </td>#}
+                                                <td>
+												{% if items.confirmed %}
+													Active
+												{%else%}
+													Pending
+												{%endif%}
+                                                    
+                                                </td>
+												<td>
+												{% if items.confirmed %}
+                                                    <!--Deactivate-->
+													<a href="#">Deactivate</a>
+												{%else%}
+                                                    <!--Activate-->
+													<a href="#">Activate</a>
+												{%endif%}
+                                                    
+                                                </td>
+                                            </tr>
+                                        {%endfor%}
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.col-->
+                    </div>
+                    <!--/.row-->
+                </div>
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+{% endblock %}

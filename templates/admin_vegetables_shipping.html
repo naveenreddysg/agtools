@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+.days{
+       float: right;
+}
+ table.dataTable thead>tr>td.sorting, table.dataTable thead>tr>td.sorting_asc, table.dataTable thead>tr>td.sorting_desc, table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>th.sorting_asc, table.dataTable thead>tr>th.sorting_desc {
+    padding-right: 0px;
+}
+.button {
+    background-color: #46403F;
+    border: none;
+    color: white;
+    padding: 1px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+</style>
+<script>
+        $( function() {
+        $( ".datepicker" ).datepicker();
+         } );
+</script>            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a>
+                </li>
+                <li class="breadcrumb-item active">Vegetables Shipping Point</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <font size="3">Total Vegetables Shipping Point:</font>  <font size="4">{{total_vegetables}}</font>
+                                    <!-- Date input -->
+                                   <form method="post" action="/admin_vegetables_shipping" name="form1" class="days form-inline">
+                                   <div class="form-group">
+                                   <!--<label for=“date”>From Date :</label>&nbsp;-->
+                                   <input id="date" name="fdate" type="text" class="datepicker a" placeholder={{FromDate}} required/>&nbsp;
+                                   </div>
+                                   <div class="form-group">
+                                   <!--<label for=“date1”>To Date :</label>&nbsp;-->
+                                   <input id="date1" name="tdate" type="text" class="datepicker a" placeholder={{ToDate}} required/>&nbsp;
+                                   </div>
+                                       <button class="button" type="submit">Submit</button>
+                                   </form>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0 datatable">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <th>Commodity</th>
+                                                <th >Location</th>
+                                                <th>Report Date</th>
+                                                <th >Size</th>
+												<th >Type</th>
+												{#<th>Mostly Low-High Price</th>#}
+												<th>Low-High Price</th>
+												<th>Package</th>
+												<th>Variety</th>
+												{#<th>Unit of Sale</th>#}
+												<th>Market</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+										{% for items in result_items %}
+                                            <tr>
+                                                <td>{{items.commodity}}</td>
+                                                <td width=200>{{items.location}}</td>
+                                                <td width=120>{{items.report_date}}</td>
+                                                <td>{{items.size}}</td>
+												<td width=150>{{items.type}}</td>
+												{#<td>{{items.low_high_mostly_price}}</td>#}
+												<td width=150>{{items.low_high_price}}</td>
+												<td width=180>{{items.package}}</td>
+												<td width=220>{{items.variety}}</td>
+                                                {#<td width=130>{{items.unit_of_sale}}</td>#}
+												<td width=180>{{items.market}}</td>
+                                            </tr>
+                                          {%endfor%}
+                                        </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>                        <!--/.col-->
+                    </div>                    <!--/.row-->
+                </div>
+            </div>            <!-- /.conainer-fluid -->
+{% endblock %}

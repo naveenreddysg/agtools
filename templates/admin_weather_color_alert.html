@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+<script>
+    var plansByCategory = {
+    GROWER: ["PLANTING", "HARVESTING"],
+    BUYER: ["PLANNING", "PURCHASING"],
+    TRUCKER: ["LOGISTICAL PLANNING", "LOGISTICAL DAILY"],
+    GOVERNAMENTAGENT: ["PLANNING", "PURCHASING"]
+}
+    function changecat(value) {
+        if (value.length == 0) document.getElementById("category").innerHTML = "<option></option>";
+        else {
+            var catOptions = "";
+            for (categoryId in plansByCategory[value]) {
+                catOptions += "<option>" + plansByCategory[value][categoryId] + "</option>";
+            }
+            document.getElementById("category").innerHTML = catOptions;
+        }
+    };
+
+    $(function(){
+   $('#selectId').on('change',function(){
+      $.ajax({
+         url: '/weather_table',
+         data: $('form').serialize(),
+         type: 'POST',
+         success: function(response) {
+            $("#suggestions").html(response);
+          },
+         error: function(error){
+            console.log(error);
+         }
+      });
+   });
+});
+
+</script>
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">Weather Color Alert</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+
+                </li>
+            </ol>
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                <font size="3">Weather Color Alert</font>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container">
+                                        <form method="post" action="/admin_weather_color_alert" role="form">
+                                            <div class="form-row">
+                                                <div class="col-md-4 mb-3">
+                                                  <label>User Type</label>
+                                                  <div class="form-group">
+                                                    <select class="form-control" name="userType" onChange="changecat(this.value);" required>
+                                                        <option value="" disabled selected>Select User Type</option>
+                                                        <option value="GROWER">GROWER</option>
+                                                        <option value="BUYER">BUYER</option>
+                                                        <option value="TRUCKER">TRUCKER</option>
+                                                        <option value="GOVERNAMENTAGENT">GOVERNAMENTAGENT</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                  <label>Commodity</label>
+                                                  <div class="form-group">
+                                                    <select id="selectId" class="form-control" name="commodity" required>
+                                                        <option value="" disabled selected>Select Commodity</option>
+                                                        <optgroup label="FRUITS">
+                                                        {% for items in fruits %}
+                                                        <option value="{{items.fruit_name}}">{{items.fruit_name}}</option>
+                                                        {% endfor %}
+                                                        </optgroup>
+                                                        <optgroup label="VEGETABLES">
+                                                        {% for items in vegetables %}
+                                                        <option value="{{items.vegetable_name}}">{{items.vegetable_name}}</option>
+                                                        {% endfor %}
+                                                        </optgroup>
+                                                        <optgroup label="HERBS">
+                                                        {% for items in herbs %}
+                                                        <option value="{{items}}">{{items}}</option>
+                                                        {% endfor %}
+                                                        </optgroup>
+                                                        <optgroup label="NUTS">
+                                                        {% for items in nuts %}
+                                                        <option value="{{items}}">{{items}}</option>
+                                                        {% endfor %}
+                                                        </optgroup>
+                                                        <optgroup label="ORNAMENTALS">
+                                                        {% for items in ornamentals %}
+                                                        <option value="{{items}}">{{items}}</option>
+                                                        {% endfor %}
+                                                        </optgroup>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                  <label>Planning</label>
+                                                  <div class="form-group">
+                                                    <select class="form-control" name="subuserType" id="category" required>
+                                                        <option value="" disabled selected>Select Planning</option>
+                                                    </select>
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                  <label for="validationCustom01">Minimum Temperature</label>
+                                                  <input type="text" class="form-control" id="validationCustom01" name="minTemp" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                  <label for="validationCustom02">Maximum Temperature</label>
+                                                  <input type="text" class="form-control" id="validationCustom02" name="maxTemp" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                  <label for="validationCustom03">Source</label>
+                                                  <input type="text" class="form-control" id="validationCustom03" name="source" size="500" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                  <label for="validationCustom04">URL</label>
+                                                  <input type="text" class="form-control" id="validationCustom04" name="url" size="2048" required>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-secondary btn-sm">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/.col-->
+                    </div><!--/.row-->
+                </div>
+            </div><!-- /.conainer-fluid -->
+<div id="suggestions"></div>
+{% endblock %}

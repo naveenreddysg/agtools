@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.card-body{
+min-height:110px !important;
+}
+.error{
+color: red
+}
+.center-div
+{
+     margin: 0 auto;
+     width: 150px;
+}
+</style>
+<script>
+$(function(){
+   $('#selectId').on('change',function(){
+      $.ajax({
+         url: '/get_states',
+         data: $('form').serialize(),
+         type: 'POST',
+         beforeSend: function() {
+                $('#state').html("<img height=10px width=10px src='/static/img/loading.gif' />");
+              },
+         success: function(response) {
+            $("#state").html(response);
+          },
+         error: function(error){
+            console.log(error);
+         }
+      });
+   });
+});
+
+$(function(){
+   $('#state').on('change',function(){
+      $.ajax({
+         url: '/get_cities',
+         data: $('form').serialize(),
+         type: 'POST',
+         beforeSend: function() {
+                $('#city').html("<img height=10px width=10px src='/static/img/loading.gif' />");
+              },
+         success: function(response) {
+            $("#city").html(response);
+          },
+         error: function(error){
+            console.log(error);
+         }
+      });
+   });
+});
+</script>
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">User Registration</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form">
+                                        <div class="center-div"><img src="/static/img/New_logo.png"></div>
+
+                                        {%  with messages = get_flashed_messages(category_filter=["error"]) %}
+                                         {% if messages %}
+                                            <div class="alert-message block-message error">
+                                               <ul class =flashes>
+                                               {% for message in messages %}
+                                                 <li><strong>Error:</strong> {{ message }}</li>
+                                               {% endfor %}
+                                               </ul>
+                                            </div>
+                                         {% endif %}
+                                        {% endwith %}
+
+                                        {%  with messages = get_flashed_messages(category_filter=["info"]) %}
+                                         {% if messages %}
+                                            <div class="alert-message block-message error">
+                                                <ul class =flashes>
+                                               {% for message in messages %}
+                                                 <li>{{ message }}</li>
+                                               {% endfor %}
+                                               </ul>
+                                            </div>
+                                         {% endif %}
+                                        {% endwith %}
+
+                                        <form class="register-form" action="/admin_register" role="form" method="post">
+
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input type="email" class="form-control" name="email1" placeholder="Email" required/>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input type="text" class="form-control" name="name1" placeholder="Name" required/>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <input type="password" class="form-control" name="pwd1" id="pwd1" placeholder="Password" onkeyup="check();" required/>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <input type="password" class="form-control" name="pwd2" id="pwd2" placeholder="Confirm Password" onkeyup="check();" required/>
+                                            </div>
+                                            <span style="margin-bottom:10px" id='message'></span>
+
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon">Country</span>
+                                                <select id="selectId" class="form-control" name="country" required>
+                                                    <option value="" disabled selected>Select Country</option>
+                                                    <option value="US">US</option>
+                                                    <option value="Mexico">Mexico</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon">State</span>
+                                                <select class="form-control" name="state" id="state" required>
+                                                    <option value="" disabled selected>Select State</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon">City</span>
+                                                <select class="form-control" name="city" id="city" required>
+                                                    <option value="" disabled selected>Select City</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-addon">User Type</span>
+                                                <select class="form-control" name="userType" id="userType"required>
+                                                    <option value="" disabled selected>Select User Type</option>
+                                                    <option value="GROWER">GROWER</option>
+                                                    <option value="BUYER">BUYER</option>
+                                                    <option value="TRUCKER">TRUCKER</option>
+                                                    <option value="GOVERNAMENT AGENT">GOVERNAMENT AGENT</option>
+                                                </select>
+                                            </div>
+                                            <div class="row center-div" >
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn btn-outline-primary px-4" onclick="return Validate()">Register</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+<script>
+var check = function() {
+  var val = document.getElementById('pwd1').value
+  if (document.getElementById('pwd1').value ==
+    document.getElementById('pwd2').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = 'Passwords Matching';
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'Passwords Not Matching';
+  }
+};
+
+function Validate() {
+        var password = document.getElementById("pwd1").value;
+        var confirmPassword = document.getElementById("pwd2").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{% endblock %}

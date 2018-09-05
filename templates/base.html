@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Agtools Admin">
+    <meta name="author" content="hughson simon sanctusIT">
+    <meta name="keyword" content="sanctusIT hughson simon">
+    <link rel="shortcut icon" href="img/favicon.png">
+     <title>Agtools : Admin Panel</title>
+
+    <!-- Icons -->
+	<link rel="shortcut icon" type="image/png" href="/static/img/New_logo.png"/>
+
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link href="/static/css/style.css" type="text/css" rel="stylesheet">
+    <!--Bootstrap Datatable CSS-->
+    <link rel="stylesheet" type="text/css" href="/static/vendors/css/dataTables.bootstrap4.min.css">
+
+<style>
+.carousel-indicators{
+    bottom: -10px !important;
+}
+.carousel-indicators .active{
+    background-color:black;
+}
+.control-next{
+    top:0px;
+}
+
+.a{
+    cursor: pointer;
+}
+.card{
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+.app-header.navbar .navbar-brand {
+    background-size: 98px auto !important;
+}
+<!--.navbar-brand {-->
+    <!--background-image: url(/static/img/New_logo.png)!important;-->
+<!--}-->
+.table-container{
+    width: 100%;
+    overflow-y: auto;
+    _overflow: auto;
+    margin: 0 0 1em;
+}
+.table-container::-webkit-scrollbar{
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+}
+.table-container::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: rgba(0, 0, 0, .3);
+}
+.table-container-outer{
+    position: relative;
+}
+.table-container-fade{
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    background-image: -webkit-linear-gradient(0deg, rgba(255,255,255,.5), #fff);
+    background-image: -moz-linear-gradient(0deg, rgba(255,255,255,.5), #fff);
+    background-image: -ms-linear-gradient(0deg, rgba(255,255,255,.5), #fff);
+    background-image: -o-linear-gradient(0deg, rgba(255,255,255,.5), #fff);
+    background-image: linear-gradient(0deg, rgba(255,255,255,.5), #fff);
+}
+ul.pagination {
+   justify-content: unset !important;
+}
+@media (min-width: 768px)
+.col-md-7 {
+   flex: 0 0 58.33333%;
+   max-width: 59.33333%;
+}
+</style>
+
+
+
+    <!-- Bootstrap and necessary plugins -->
+    <script src="/static/vendors/js/jquery.min.js"></script>
+    <script src="/static/vendors/js/popper.min.js"></script>
+    <script src="/static/vendors/js/bootstrap.min.js"></script>
+    <script src="/static/vendors/js/pace.min.js"></script>
+    <!--Plugins and scripts required by all views-->
+    <script src="/static/vendors/js/Chart.min.js"></script>
+    <!--Bootstrap Datatables JS-->
+    <script type="text/javascript" src="/static/vendors/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/vendors/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/static/js/views/datatables.js"></script>
+
+</head>
+
+ 
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button"><i class="fa fa-bars"></i></button>
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler sidebar-minimizer d-md-down-none" type="button"><i class="fa fa-bars"></i></button>
+
+         
+        <ul class="nav navbar-nav ml-auto">
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    
+                    <span class="d-md-down-none">{{current_user.name}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-header text-center">
+                        <strong>Account</strong>
+                    </div>
+                    <!--<a class="dropdown-item" href="#"><i class="fa fa-users"></i> Profile</a>-->
+                    <a class="dropdown-item" href="/logout"><i class="fa fa-lock"></i> Logout</a>
+                </div>
+            </li>
+        </ul>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+    </header>
+        <!-- /top navigation -->
+
+		<!-- page content -->
+		 <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="icon-speedometer"></i> Dashboard </a>
+                    </li>
+
+					<li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"  ><i class="fa fa-users"></i> Users</a>
+                        <ul class="nav-dropdown-items">
+                             <li class="nav-item">
+                                <a class="nav-link" href="/admin_users/">&nbsp;&nbsp;<i class="fa fa-users"></i> Registered Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_userlog">&nbsp;&nbsp;<i class="fa fa-users"></i> Userlog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_register">&nbsp;&nbsp;<i class="fa fa-users"></i> User Registration</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_commodities_meta"><i class="fa fa-apple"></i>  Commodities</a>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"  ><i class="fa fa-apple"></i> Fruits</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_fruits_meta">&nbsp;&nbsp;<i class="fa fa-apple"></i> Meta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_fruits_shipping">&nbsp;&nbsp;<i class="fa fa-apple"></i> Shipping Point</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_fruits_terminal">&nbsp;&nbsp;<i class="fa fa-apple"></i> Terminal Market</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_fruits_volume">&nbsp;&nbsp;<i class="fa fa-apple"></i> Volume</a>
+                            </li>
+                        </ul>
+                    </li>
+
+					<li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"><i class="icon-puzzle"></i> Vegetables</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_vegetables_meta">&nbsp;&nbsp;<i class="icon-puzzle"></i> Meta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_vegetables_shipping">&nbsp;&nbsp;<i class="icon-puzzle"></i> Shipping Point</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_vegetables_terminal">&nbsp;&nbsp;<i class="icon-puzzle"></i> Terminal Market</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_vegetables_volume">&nbsp;&nbsp;<i class="icon-puzzle"></i> Volume</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"  ><i class="fa fa-leaf"></i> Herbs</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_herbs_meta">&nbsp;&nbsp;<i class="fa fa-leaf"></i> Meta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_herbs_shipping">&nbsp;&nbsp;<i class="fa fa-leaf"></i> Shipping Point</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_herbs_terminal">&nbsp;&nbsp;<i class="fa fa-leaf"></i> Terminal Market</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_herbs_volume">&nbsp;&nbsp;<i class="fa fa-leaf"></i> Volume</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"  ><i class="fa fa-apple"></i> Nuts</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_nuts_meta">&nbsp;&nbsp;<i class="fa fa-apple"></i> Meta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_nuts_shipping">&nbsp;&nbsp;<i class="fa fa-apple"></i> Shipping Point</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_nuts_terminal">&nbsp;&nbsp;<i class="fa fa-apple"></i> Terminal Market</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_nuts_volume">&nbsp;&nbsp;<i class="fa fa-apple"></i> Volume</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"  ><i class="fa fa-tree"></i> Ornamentals</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_ornamentals_meta">&nbsp;&nbsp;<i class="fa fa-tree"></i> Meta</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_ornamentals_shipping">&nbsp;&nbsp;<i class="fa fa-tree"></i> Shipping Point</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_ornamentals_terminal">&nbsp;&nbsp;<i class="fa fa-tree"></i> Terminal Market</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_ornamentals_volume">&nbsp;&nbsp;<i class="fa fa-tree"></i> Volume</a>
+                            </li>
+                        </ul>
+                    </li>
+
+					<li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"><i class="icon-calculator"></i> Consumer Price</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_consumerprice_cities">&nbsp;&nbsp;<i class="icon-calculator"></i> All Cities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_consumerprice_food">&nbsp;&nbsp;<i class="icon-calculator"></i> All Food</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_consumerprice_fruits">&nbsp;&nbsp;<i class="icon-calculator"></i> All Fruits</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_consumerprice_vegetables">&nbsp;&nbsp;<i class="icon-calculator"></i> All Vegetables</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"><i class="icon-star"></i> Exchange Rates</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_exchangerates_canada">&nbsp;&nbsp;<i class="icon-star"></i> Canada</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_exchangerates_mexico">&nbsp;&nbsp;<i class="icon-star"></i> Mexico</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"><i class="fa fa-cloud"></i> Weather</a>
+                        <ul class="nav-dropdown-items">
+							<li class="nav-item">
+                                <a class="nav-link" href="/admin_weather_alert">&nbsp;&nbsp;<i class="fa fa-cloud"></i> Weather Alert</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_weather_color_alert">&nbsp;&nbsp;<i class="fa fa-cloud"></i> Weather Color Alert</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#"><i class="fa fa-star"></i>  Packages Settings </a>
+                    </li>
+					
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"><i class="icon-star"></i> Gasoline</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_gasoline_gasprices">&nbsp;&nbsp;<i class="icon-star"></i> Gas Prices</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_gasoline_fuelprices">&nbsp;&nbsp;<i class="icon-star"></i> Fuel Prices</a>
+                            </li>
+                        </ul>
+                    </li>
+                     
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle"><i class="fa fa-th"></i> System</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/crawl_stats_usda" target="_top">&nbsp;&nbsp;<i class="fa fa-th"></i> USDA Crawl Stats</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="pages-register.html" target="_top">&nbsp;&nbsp;<i class="fa fa-th"></i> System Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+		<!-- Main content -->
+			<main class="main">
+			 {% block content %}{% endblock %}
+			</main>
+		</div>
+		<div id="response_message"></div>
+		<!-- page content -->
+            <!--DatePicker-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <!-- footer content -->
+       <footer class="app-footer">
+        Copyright &copy; 2017 AGTOOL. All rights reserved.
+        <span class="float-right">Developed by Logistic Solutions.
+        <!-- Bootstrap and necessary plugins -->
+        <!--<script src="http://coreui.io/demo/Ajax_Demo/vendors/js/jquery.min.js"></script>-->
+        <!--<script src="http://coreui.io/demo/Ajax_Demo/vendors/js/popper.min.js"></script>-->
+        <!--<script src="http://coreui.io/demo/Ajax_Demo/vendors/js/bootstrap.min.js"></script>-->
+        <!--<script src="http://coreui.io/demo/Ajax_Demo/vendors/js/pace.min.js"></script>-->
+         <!--Plugins and scripts required by all views-->
+        <!--<script src="http://coreui.io/demo/Ajax_Demo/vendors/js/Chart.min.js"></script>-->
+        </span>
+       </footer>
+
+
+    <!-- GenesisUI main scripts -->
+    <script src="/static/js/app.js"></script>
+
+    <!-- Custom scripts required by this view -->
+    <script src="/static/js/views/widgets.js"></script>
+
+</body>
+
+</html>

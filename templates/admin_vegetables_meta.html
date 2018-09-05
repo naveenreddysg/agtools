@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+
+</style>
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a>
+                </li>
+                <li class="breadcrumb-item active">Vegetables Meta</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                     
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <font size="3">Total Vegetables:</font>&nbsp;&nbsp;<font size="4">{{total_vegetables}}</font>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0 datatable">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th >Total Shipping</th>
+                                                <th>Total Volume</th>
+                                                <th >Total Terminal</th>
+												<th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+										{% for items in result_items %}
+                                            {% if items._id['Type']== "vegetables" %}
+                                            <tr>
+                                                <td>
+                                                    {{items._id['Name']}}
+                                                </td>
+                                                <td>
+                                                    {{items.Shipping_Point}}
+                                                </td>
+                                                <td>
+                                                    {{items.Movement}}
+                                                </td>
+                                                <td>
+                                                     {{items.Terminal_Market}}
+                                                </td>
+												<td>
+                                                     0
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                          {%endfor%}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        <!--/.col-->
+                    </div>                    <!--/.row-->
+                </div>
+            </div>            <!-- /.conainer-fluid -->
+{% endblock %}

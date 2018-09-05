@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">User Profile Details</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+
+                </li>
+            </ol>
+
+          <div class="container-fluid">
+              <div class="animated fadeIn">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="card">
+                              <div class="card-header">
+                                  <h3>User Profile Details</h3>
+                              </div>
+                              <div class="card-body" style="padding:0px !important">
+                              <div class="table-container">
+                                <table class="table table-hover table-outline mb-0" cellspacing="0" style="border-collapse: collapse !important;">
+                                    <tbody>
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td>{{entries.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td><a href="#">{{entries.username}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Type:</td>
+                                        <td>{{entries.usertype}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joined date:</td>
+                                        <td>{{entries.created_time}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address:</td>
+                                        <td>{{entries.city}},{{entries.state}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country:</td>
+                                        <td>{{entries.country}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status:</td>
+                                        <td>{% if entries.confirmed %}
+                                                  Active
+                                            {%else%}
+                                                  Pending
+                                            {%endif%}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total-Subscriptions:</td>
+                                        <td>{{curr2.tot}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subscription ID:</td>
+                                        <td>{{entry.subscriptionid}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subscription Status:</td>
+                                        <td>{{entry.subscriptionStatus}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subscription Start Date:</td>
+                                        <td>{{entry.createdAt}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subscription End Date:</td>
+                                        <td>{{entry.enddate}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Commodity Names:</td>
+                                        <td>{{commodities}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                              </div>
+                            <div class="card-body">
+                                <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0 datatable">
+                                    <thead class="thead-default">
+                                    <tr>
+                                        <th>Log ID</th>
+                                        <th >User ID</th>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        {#<th >Lastname</th>#}
+                                        <th>Activity Tpe</th>
+                                        <th>Logged Time</th>
+                                        <th>Commodity</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for items in curr3 %}
+                                    <tr>
+                                        <td>{{items.logId}}</td>
+                                        <td>{{items.userId}}</td>
+                                        <td>{{items.email}}</td>
+                                        <td>{{items.firstname}}</td>
+                                        {#<td>{{items.lastname}}</td>#}
+                                        <td>{{items.activityType}}</td>
+                                        <td>{{items.loggedTime}}</td>
+                                        <td>{{items.commodity}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+{% endblock %}

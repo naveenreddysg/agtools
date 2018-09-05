@@ -1,0 +1,10 @@
+flask
+.idea
+db_repository
+app.db
+tmp
+.pyc
+logs
+.log
+__pycache__/
+*.pyc

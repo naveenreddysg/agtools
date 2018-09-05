@@ -1,0 +1,36 @@
+"""All Constants will be defined in this file. Including texts urls and status responses.
+"""
+__author__ = 'hughson.simon@gmail.com'
+
+RESPONSE_MESSAGE = "response_message"
+RESPONSE_CODE = "response_code"
+RESPONSE_STATUS = "response_status"
+LOGOUT_MESSAGE = "Successfully logged out"
+RESPONSE_SUCCESS = "SUCCESS"
+EMAIL_EXISTS = "Email Already Exisits"
+RESPONSE_ERROR = "ERROR"
+USERNAME_EXISTS = "Username Already Exisits"
+REGISTER_SUCCESS = "Registration Successfully Completed. Please verify email account."
+REGISTER_ERROR = "Registratio did not complete. There was a problem with the give fields."
+ACTIVATION_SUCCESS = "Email has been successfully verified"
+ACTIVATION_ERROR = "Email has not been verified"
+INVALID_REQUEST = "Invalid request. Please contact administrator"
+LOGIN_MESSAGE = "Successfully logged in"
+RECORD_SUCCESS = "Successfully edited"
+USERUPDATE_PARTIAL_ERROR = "User record updated. But there was a problem with the given groups."
+INVALID_EMAIL = "No user with that email address or username exists."
+FORGOT_PASS = "An email is sent to you at the account registered address"
+USER_DELETED = "User Successfully Deleted"
+PASSWORD_RESET = "Password Reset successfully done."
+EMAIL_REQUIRED = "Email address is required"
+GROUP_REQUIRED = "Group name is required"
+GROUP_EXISTS = "Group name Already Exisits"
+GROUP_CREATE_SUCCESS = "Group Successfully created."
+GROUP_DELETED = "Group Successfully Deleted."
+GROUP_UPDATED = "Group Successfully updated."
+RECORD_NOTFOUND = "Record you are searching for is not in database"
+GROUP_PARTIAL_ERROR = "Group created. But there was a problem with the given permissions."
+GROUP_ERROR = "Group was not created."
+
+COMMODITY_CLASS = ['FRUITS','VEGETABLES']
+COMMODITY_REPORT_TYPE = ['Shipping Point', 'Terminal Market', 'Movement']

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a>
+                </li>
+                <li class="breadcrumb-item active">Dashboard</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+
+                </li>
+            </ol>
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <CENTER>Showing total {{total_visits}} users who logged in last {{N}} days</CENTER>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <table class="table table-responsive table-hover table-outline mb-0 datatable" id="example">
+                                        <thead class="thead-default">
+
+                                            <tr role = "row">
+                                                <!--<th style="display:none;"></th>-->
+                                                <!--<th></th>-->
+                                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Log ID</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Name</th>
+                                                {#<th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Last Name</th>#}
+                                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Email</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Logged Time</th>
+                                                <!--<th>LogIn Count</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+										{% for items in result %}
+                                            <tr role="row">
+
+                                                <td class="sorting_1">
+                                                    {{items.logId}}
+                                                </td>
+                                                <td class="sorting_1">
+                                                    <div>{{items.firstname}}</div>
+                                                </td>
+                                                {#<td class="sorting_1">
+                                                    {{items.lastname}}
+                                                </td>#}
+                                                <td class="sorting_1">
+                                                    {{items.email}}
+                                                </td>
+                                                <td class="sorting_1">
+                                                     {{items.loggedTime.strftime("%b-%d-%Y %H:%M:%S")}}
+                                                </td>
+                                            </tr>
+                                          {%endfor%}
+                           <!--{% for items in new_list %}-->
+                           <!--{% if items|length >1 %}-->
+                           <!--<tr class="clickable" data-toggle="collapse" id="{{items[0].logId}}" data-target=".{{items[0].logId}}">-->
+                               <!--<td style="display:none;"></td>-->
+                               <!--<td style="width: 20px; text-align:center"><i class="fa fa-plus-square-o"></i></td>-->
+                               <!--<td>{{items[0].logId}}</td>-->
+                               <!--<td>{{items[0].firstname}}</td>-->
+                               <!--<td>{{items[0].email}}</td>-->
+                               <!--<td>{{items[0].loggedTime}}</td>-->
+                               <!--<td>{{items|length}}</td>-->
+                           <!--</tr>-->
+                           <!--{% elif items|length == 1 %}-->
+                           <!--<tr>-->
+                               <!--<td style="display:none;"></td>-->
+                               <!--<td style="width: 20px; text-align:center"></td>-->
+                               <!--<td>{{items[0].logId}}</td>-->
+                               <!--<td>{{items[0].firstname}}</td>-->
+                               <!--<td>{{items[0].email}}</td>-->
+                               <!--<td>{{items[0].loggedTime}}</td>-->
+                               <!--<td></td>-->
+                           <!--</tr>-->
+                           <!--{% endif %}-->
+                           <!--{% for item in items %}-->
+                           <!--{% if item != items[0] %}-->
+                           <!--<tr class="collapse {{items[0].logId}}">-->
+                               <!--<td style="display:none;"></td>-->
+                               <!--<td style="width: 20px; text-align:center">-</td>-->
+                               <!--<td>{{item.logId}}</td>-->
+                               <!--<td>{{item.firstname}}</td>-->
+                               <!--<td>{{item.email}}</td>-->
+                               <!--<td>{{(item.loggedTime)}}</td>-->
+                               <!--<td></td>-->
+                           <!--</tr>-->
+                           <!--{% endif %}-->
+                           <!--{% endfor %}-->
+                           <!--{% endfor %}-->
+
+                                         </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

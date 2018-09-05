@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<script>
+$(document).ready(function() {
+    $('.example').DataTable( {
+        "lengthMenu": [[100, -1], [100, "All"]],
+        "columnDefs": [ {
+        "targets": 5,
+        "orderable": false
+} ]
+    } );
+} );
+
+</script>
+<style>
+.card-body{
+min-height:110px !important;
+}
+.a{
+    cursor: pointer;
+}
+.b{
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 5px;
+    font-size:120%;
+}
+.c {
+    padding: 0px !important;
+}
+</style>
+        <p id="p1"></p>
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a>
+                </li>
+                <li class="breadcrumb-item active">Userlog</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+
+                </li>
+            </ol>
+
+
+                <div class="container-fluid">
+                    <div class="animated fadeIn">
+					<div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row justify-content-between" style="padding:10px 0px 0px 1.25rem">
+                                        <div class="col c" style="margin:10px 0px 0px 0px"><font size="4">Active Users</font></div>
+                                        <div class="col d-flex justify-content-end">
+                                            <div class="c"><p style="margin:0px 5px 0px 20px;text-align:center">Users<br/><font size="5">{{new_list|length}}</font></p></div>
+                                            <div class="c"><p style="margin:0px 10px 0px 5px;text-align:center">Sessions<br/><font size="5">{{total_visits}}</font></p></div>
+                                            <div class="border border-secondary rounded c" style="margin:5px 10px 10px 10px;"><p style="margin:0px 0px 5px 8px;text-align:left">Sort by</p>
+
+                                            <form method="post" action="/admin_userlog" name="form1">
+                                                {% if N==30 %}
+                                                    <button style="cursor: default;" type="submit" name="submit" class="btn btn-link b" disabled value="30">30 Days</button>
+                                                {% else %}
+                                                    <button  type="submit" name="submit" class="btn btn-link b" value="30">30 Days</button>
+                                                {% endif %}
+                                                {% if N==60 %}
+                                                    <button style="cursor: default" type="submit" name="submit" class="btn btn-link b" disabled value="60">60 Days</button>
+                                                {% else %}
+                                                    <button type="submit" name="submit" class="btn btn-link b" value="60">60 Days</button>
+                                                {% endif %}
+                                                {% if N==90 %}
+                                                    <button style="padding-right:5px;cursor: default" type="submit" name="submit" class="btn btn-link b" disabled value="90">90 Days</button>
+                                                {% else %}
+                                                    <button style="padding-right:5px" type="submit" name="submit" class="btn btn-link b" value="90">90 Days</button>
+                                                {% endif %}
+                                            </form>
+                                            </div>
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                <div class="table-container">
+                                <table class="example table table-hover table-outline table-sortable mb-0" style="border-collapse: collapse !important; width:100%">
+                                    <thead class="thead-default">
+                                        <tr role = "row">
+                                            <th style="display:none;"></th>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <!--<th>Last Name</th>-->
+                                            <th>Last LogIn</th>
+                                            <th>Sessions</th>
+                                            <th>Log ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        {% for items in new_list %}
+                                        {% if items|length >1 %}
+                                        <tr class="clickable a" data-toggle="collapse" id="{{items[0].logId}}" data-target=".{{items[0].logId}}">
+                                            <td style="display:none;"></td>
+                                            <td style="width: 20px; text-align:center"><i class="fa fa-user-plus"></i></td>
+                                            <td>{{items[0].firstname}}</td>
+                                            <td>{{items[0].email}}</td>
+                                            <td>{{items[0].loggedTime}}</td>
+                                            <td>{{sessions[loop.index-1]}}</td>
+                                            <td>{{items[0].logId}}</td>
+                                        </tr>
+                                        {% elif items|length == 1 %}
+                                        <tr>
+                                            <td style="display:none;"></td>
+                                            <td style="width: 20px; text-align:center"></td>
+                                            <td>{{items[0].firstname}}</td>
+                                            <td>{{items[0].email}}</td>
+                                            <td>{{items[0].loggedTime}}</td>
+                                            <td>{{items|length}}</td>
+                                            <td>{{items[0].logId}}</td>
+                                            <!--<td></td>-->
+                                        </tr>
+                                        {% endif %}
+                                        {% for item in items %}
+                                        {% if item != items[0] %}
+                                        <tr class="collapse {{items[0].logId}}">
+                                            <td style="display:none;"></td>
+                                            <td style="width: 20px; text-align:center"><i class="fa fa-caret-right"></i></td>
+                                            <td>{{item.firstname}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{item.loggedTime}}</td>
+                                            <td></td>
+                                            <td>{{item.logId}}</td>
+                                            <!--<td></td>-->
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div><!--/.row-->
+  {% endblock %}

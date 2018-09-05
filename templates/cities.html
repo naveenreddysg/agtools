@@ -1,0 +1,4 @@
+<option value="" disabled selected>Select City</option>
+{% for items in cities %}
+<option value="{{ items }}">{{ items|string }}</option>
+{% endfor %}

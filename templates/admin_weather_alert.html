@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+<script>
+$(document).ready(function() {
+    $('#examples').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+</script>
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">Weather Alert</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                     
+                </li>
+            </ol>
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Total Weathers Count : {{total_weather}}
+                                </div>
+                                <div class="card-body">
+                                        <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0" id="examples" cellspacing="0" style="border-collapse: collapse !important;">
+                                        <thead class="thead-default">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>ZIP</th>
+                                            <th>Datatype</th>
+                                            <th>Value</th>
+                                            <th>Station</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for items in result_items %}
+                                        <tr>
+                                            <td>{{items.date}}</td>
+                                            <td>{{items.zip}}</td>
+                                            <td>{{items.datatype}}</td>
+                                            <td>{{items.value}}</td>
+                                            <td>{{items.station}}</td>
+                                        </tr>
+                                        {%endfor%}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        <!--/.col-->
+                    </div>                    <!--/.row-->
+                </div>
+            </div>            <!-- /.conainer-fluid -->
+{% endblock %}

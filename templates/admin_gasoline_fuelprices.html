@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+</style>
+<script>
+    $(document).ready(function() {
+    $('#examples').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+</script>
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">Fuel Prices</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                     
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <font size="3">Total Fuel Prices:</font>  <font size="4">{{total_fuelprices}}</font>
+                                </div>
+                                <div class="card-body">
+                                <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0" id="examples" cellspacing="0" style="border-collapse: collapse !important;">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <th >Report_Date</th>
+                                                <th>Rate_Value</th>
+                                                <th>Crawl_Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+										{% for items in result_items %}
+                                            <tr>
+                                                <td>
+                                                    {{items.report_date}}
+                                                </td>
+                                                <td>
+                                                    {{items.rate_value}}
+                                                </td>
+                                                 <td>
+                                                    {{items.crawl_date}}
+                                                </td>
+                                            </tr>
+                                        {%endfor%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div> <!--/.col-->
+                    </div><!--/.row-->
+                </div>
+            </div>            <!-- /.conainer-fluid -->
+{% endblock %}

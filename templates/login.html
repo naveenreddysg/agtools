@@ -1,0 +1,96 @@
+<!--
+ * CoreUI - Open Source Bootstrap Admin Template
+ * @version v1.0.0-alpha.6
+ * @link http://coreui.io
+ * Copyright (c) 2017 creativeLabs Łukasz Holeczek
+ * @license MIT
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Agtools Admin">
+    <meta name="author" content="hughson simon sanctusIT">
+    <meta name="keyword" content="sanctusIT hughson simon">
+    <!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
+
+    <title>Agtools : Admin Panel</title>
+
+    <!-- Icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Main styles for this application -->
+    <link href="/static/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card-group mb-0">
+                    <div class="card p-4">
+                        <div class="card-body">
+                        <div class="form">
+						<form id="loginform" class="form-horizontal" action="/login" role="form" method=post>
+
+
+                            <h1>Admin Login</h1>
+                            <p class="text-muted">Sign In to your admin account</p>
+							{% if error %}
+							
+							<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">*</button>
+                                <span class="alert alert-danger"> <strong>Error!</strong> {{ error }} </span>
+                            </div>
+						    {% endif %}
+                            <div class="input-group mb-3">
+                                <span class="input-group-addon"><i class="icon-user"></i>
+                                </span>
+                                <input type="text" class="form-control" name="email" value="" placeholder="email address">
+                            </div>
+                            <div class="input-group mb-4">
+                                <span class="input-group-addon"><i class="icon-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" name="password" placeholder="password">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary px-4">Login</button>
+                                </div>
+
+                                <div class="col-xs-3 text-xs-right">
+                                        <button href="http://vserver.amicuswa.com:8080" type="button" class="btn btn-link p-x-0">Go back to website!</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+                        <div class="card-body text-center">
+                            <div>
+                                <h2>Agtools Admin</h2>
+                                <p>Webmaster area to manage users, commodities, gas, fuel and many other website related modules.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and necessary plugins -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

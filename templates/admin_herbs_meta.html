@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- page content -->
+<style>
+.card-body{
+min-height:110px !important;
+}
+
+</style>
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active">Herbs Meta</li>
+
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                     
+                </li>
+            </ol>
+
+
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <font size="3">Total Herbs:</font>  <font size="4">{{total_herbs}}</font>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-container">
+                                    <table class="table table-hover table-outline mb-0 datatable">
+                                        <thead class="thead-default">
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Name</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Total Shipping</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Total Volume</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Total Terminal</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column descending" style="width: 245px;">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+										{% for items in herbs_count %}
+                                            <tr role="row">
+                                                <td>
+                                                    {{items._id}}
+                                                </td>
+                                                <td >
+                                                    {{items.Shipping_Point}}
+                                                </td>
+                                                <td>
+                                                    {{items.Movement}}
+                                                </td>
+                                                <td >
+                                                    {{items.Terminal_Market}}
+                                                </td>
+												<td >
+                                                     0
+                                                </td>
+                                            </tr>
+                                          {%endfor%}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.col-->
+                    </div>
+                    <!--/.row-->
+                </div>
+
+
+            </div>
+            <!-- /.conainer-fluid -->
+
+{% endblock %}
